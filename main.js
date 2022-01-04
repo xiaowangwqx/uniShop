@@ -2,6 +2,37 @@
 // #ifndef VUE3
 import Vue from 'vue'
 import App from './App'
+// 导入网络请求的包
+import {$http} from '@escook/request-miniprogram'
+
+uni.$http=$http
+
+// 请求根路径
+$http.baseUrl='https://www.uinav.com'
+
+// 挂载请求拦截器
+$http.beforeRequest =function(options){
+	// 展示loading效果
+	uni.showLoading({
+		title:'数据加载中...'
+	})
+}
+
+
+// 挂载响应拦截器
+$http.afterRequest =function(){
+	// 关闭loading效果
+	uni.hideLoading()
+}
+
+// 封装弹框的方法
+uni.$showMsg=function(title="数据请求失败",duration=1500){
+	uni.showToast({
+		title:title,
+		duration:duration,
+		icon:'none'
+	})
+}
 
 Vue.config.productionTip = false
 
