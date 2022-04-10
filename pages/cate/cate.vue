@@ -1,6 +1,9 @@
 <template>
 	<view>
 		<view>
+			<!-- 使用自定义搜索组件 -->
+			<my-search @search="goSearch"></my-search>
+			
 			<view class="scroll-view-container">
 				<!-- 左侧滑动区域 -->
 				<scroll-view class="left-scroll-view " scroll-y="true" :style="{ height: wh + 'px' }">
@@ -60,7 +63,7 @@ export default {
 	onLoad() {
 		const sysInfo = uni.getSystemInfoSync();
 		console.log(sysInfo);
-		this.wh = sysInfo.windowHeight;
+		this.wh = sysInfo.windowHeight-50;
 		this.getCateList();
 	},
 	methods: {
@@ -85,6 +88,13 @@ export default {
 		gotoGoodsList(item){
 			uni.navigateTo({
 				url:'../../subpkg/goods_list/goods_list?cid='+item.cat_id
+			})
+		},
+		
+		// 点击搜索
+		goSearch(){
+			uni.navigateTo({
+				url:"../../subpkg/search/search"
 			})
 		}
 	}
